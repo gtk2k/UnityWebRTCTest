@@ -1,0 +1,9 @@
+[20200301 125035] client connect: f4a87061afd14290899ba04446f6a194
+[20200301 125035] onIceCandidate
+[20200301 125036] onIceCandidate
+[20200301 125036] onIceCandidate
+[20200301 125036] onIceCandidate
+[20200301 125036] onIceCandidate
+[20200301 125036] onIceCandidate
+[20200301 125036] on answer
+[20200301 125036] on ice candidate
