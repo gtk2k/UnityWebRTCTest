@@ -12,7 +12,11 @@ ws.onmessage = async evt => {
             await pc.setLocalDescription(answer);
             ws.send(JSON.stringify(answer));
         } else if (msg.type === 'candidate') {
-            await pc.addIceCandidate(msg);
+            try{
+                await pc.addIceCandidate(msg);
+            }catch(ex) {
+                console.log(ex.message);
+            }
         }
     }
 };

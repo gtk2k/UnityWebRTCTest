@@ -28,7 +28,7 @@ public class RenderStreaming : MonoBehaviour
 
     private RTCConfiguration conf;
     private MediaStream videoStream;
-    //private MediaStream audioStream;
+    private MediaStream audioStream;
     private RTCPeerConnection pc;
     private WSServer wss;
     private WebSocket ws;
@@ -70,7 +70,7 @@ public class RenderStreaming : MonoBehaviour
             captureCamera = Camera.main;
         }
         videoStream = captureCamera.CaptureStream(streamingSize.x, streamingSize.y, RenderTextureDepth.DEPTH_24);
-        //audioStream = Audio.CaptureStream();
+        audioStream = Audio.CaptureStream();
 
         conf = default;
         conf.iceServers = iceServers;
@@ -94,6 +94,7 @@ public class RenderStreaming : MonoBehaviour
             candidate.candidate = msg.candidate;
             candidate.sdpMid = msg.sdpMid;
             candidate.sdpMLineIndex = msg.sdpMLineIndex;
+            log.Print("AddIceCandidate");
             pc.AddIceCandidate(ref candidate);
         }
         else if (msg.type == "answer")
@@ -129,15 +130,13 @@ public class RenderStreaming : MonoBehaviour
         };
         foreach (var track in videoStream.GetTracks())
             pc.AddTrack(track);
-        //foreach (var track in audioStream.GetTracks())
-        //    pc.AddTrack(track);
+        foreach (var track in audioStream.GetTracks())
+            pc.AddTrack(track);
         StartCoroutine(proccessOffer(client));
     }
 
     IEnumerator proccessOffer(WebSocket client)
     {
-        offerOptions.offerToReceiveAudio = false;
-        offerOptions.offerToReceiveVideo = false;
         Debug.Log("Create Offer");
         var op = pc.CreateOffer(ref offerOptions);
         yield return op;
