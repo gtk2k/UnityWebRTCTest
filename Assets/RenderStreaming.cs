@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using Unity.WebRTC;
 using UnityEngine;
 using WebSocketSharp;
@@ -26,7 +28,7 @@ public class RenderStreaming : MonoBehaviour
 
     private RTCConfiguration conf;
     private MediaStream videoStream;
-    private MediaStream audioStream;
+    //private MediaStream audioStream;
     private RTCPeerConnection pc;
     private WSServer wss;
     private WebSocket ws;
@@ -41,7 +43,7 @@ public class RenderStreaming : MonoBehaviour
 
     public void Awake()
     {
-        WebRTC.Initialize(EncoderType.Hardware);
+        WebRTC.Initialize(EncoderType.Software);
         log = new Log();
 
         wss = new WSServer(8989);
@@ -68,7 +70,7 @@ public class RenderStreaming : MonoBehaviour
             captureCamera = Camera.main;
         }
         videoStream = captureCamera.CaptureStream(streamingSize.x, streamingSize.y, RenderTextureDepth.DEPTH_24);
-        audioStream = Audio.CaptureStream();
+        //audioStream = Audio.CaptureStream();
 
         conf = default;
         conf.iceServers = iceServers;
@@ -127,13 +129,16 @@ public class RenderStreaming : MonoBehaviour
         };
         foreach (var track in videoStream.GetTracks())
             pc.AddTrack(track);
-        foreach (var track in audioStream.GetTracks())
-            pc.AddTrack(track);
+        //foreach (var track in audioStream.GetTracks())
+        //    pc.AddTrack(track);
         StartCoroutine(proccessOffer(client));
     }
 
     IEnumerator proccessOffer(WebSocket client)
     {
+        offerOptions.offerToReceiveAudio = false;
+        offerOptions.offerToReceiveVideo = false;
+        Debug.Log("Create Offer");
         var op = pc.CreateOffer(ref offerOptions);
         yield return op;
 
@@ -143,11 +148,12 @@ public class RenderStreaming : MonoBehaviour
             yield return ret;
 
             if (ret.isError)
-                log.Print("offer setLocalDescription error");
+                log.Print($"offer setLocalDescription error:{ret.error}");
             else
             {
                 var offer = new SignalingMessage("offer", op.desc.sdp);
                 var msg = JsonUtility.ToJson(offer);
+                Debug.Log("Send Offer");
                 client.Send(msg);
             }
         }
@@ -159,15 +165,30 @@ public class RenderStreaming : MonoBehaviour
 
     IEnumerator proccessAnswer(string sdp)
     {
+        //string pattern = @"(a=fmtp:\d+ .*level-asymmetry-allowed=.*)\r\n";
+        //sdp = Regex.Replace(sdp, pattern, "$1;x-google-start-bitrate=16000;x-google-max-bitrate=160000\r\n");
         RTCSessionDescription answer = default;
         answer.type = RTCSdpType.Answer;
         answer.sdp = sdp;
+        Debug.Log("Set Remote Answer");
         var ret = pc.SetRemoteDescription(ref answer);
         yield return ret; // ****
 
         if (ret.isError)
         {
-            log.Print("processAnser error");
+            log.Print($"processAnser error:{ret.error}");
         }
+        else
+        {
+            Debug.Log("Set Remote Answer Success");
+        }
+    }
+
+    private void Update()
+    {
+        //var t = typeof(CameraExtension);
+        //var fInfo = t.GetField("started", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetField);
+        //var val = fInfo.GetValue(t);
+        //Debug.Log($"CameraExtension.started:{val}");
     }
 }

@@ -338,9 +338,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2042327333}
   - component: {fileID: 2042327337}
-  - component: {fileID: 2042327336}
-  - component: {fileID: 2042327335}
-  - component: {fileID: 2042327334}
   - component: {fileID: 2042327338}
   m_Layer: 0
   m_Name: CaptureCamera
@@ -363,141 +360,6 @@ Transform:
   m_Father: {fileID: 887074195}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2042327334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042327332}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e57d36e454dcd44b8991f759ce3389d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 2042327337}
---- !u!114 &2042327335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042327332}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c5882c5d24312e44a94fda29fb1af9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings:
-    showCamerasForDebugging: 1
-    postProcessType: 1
-    postProcessingStackV2_options:
-      disableWarning: 0
-    postProcessingStackV1_options:
-      disableWarning: 1
-    postProcessingStackCustom_options:
-      disableWarning: 1
-  _settingsFromFile:
-    superCubeMapperEnabled:
-      valueRaw: 1
-      defaultValueRaw: 1
-    primaryCameraEnabled:
-      valueRaw: 1
-      defaultValueRaw: 1
-    dummycameraEnabled:
-      valueRaw: 1
-      defaultValueRaw: 1
-    postprocesssing_enabled:
-      valueRaw: 1
-      defaultValueRaw: 1
-    textureSharingName:
-      valueRaw: supercubemapper
-      defaultValueRaw: supercubemapper
-    useSpout:
-      valueRaw: 1
-      defaultValueRaw: 1
-    useSyphon:
-      valueRaw: 1
-      defaultValueRaw: 1
-    useNDI:
-      valueRaw: 0
-      defaultValueRaw: 0
-    cubeface_resolution:
-      valueRaw: 2048
-      defaultValueRaw: 2048
-    cubemap_overdraw_enabled:
-      valueRaw: 1
-      defaultValueRaw: 1
-    cubemap_overdraw_fov:
-      valueRaw: 100
-      defaultValueRaw: 100
-    forceRenderTexture:
-      valueRaw: 0
-      defaultValueRaw: 0
-    cubefaces_enabled:
-    - valueRaw: 1
-      defaultValueRaw: 1
-    - valueRaw: 1
-      defaultValueRaw: 1
-    - valueRaw: 1
-      defaultValueRaw: 1
-    - valueRaw: 1
-      defaultValueRaw: 1
-    - valueRaw: 1
-      defaultValueRaw: 1
-    - valueRaw: 1
-      defaultValueRaw: 1
-    cubemap_rotation:
-      valueRaw: {x: 0, y: 0, z: 0}
-      defaultValueRaw: {x: 0, y: 0, z: 0}
-    cubemap_offset:
-      valueRaw: {x: 0, y: 0, z: 0}
-      defaultValueRaw: {x: 0, y: 0, z: 0}
-    outputResult_enabled:
-      valueRaw: 0
-      defaultValueRaw: 0
-    outputDisplayIndex:
-      valueRaw: 2
-      defaultValueRaw: 2
-    fisheyecrop_enabled:
-      valueRaw: 0
-      defaultValueRaw: 0
-    fisheye_offset:
-      valueRaw: 1
-      defaultValueRaw: 1
-    projector_rotation:
-      valueRaw: {x: 0, y: 0, z: 0}
-      defaultValueRaw: {x: 0, y: 0, z: 0}
-    projector_offset:
-      valueRaw: {x: 0, y: 0, z: 0}
-      defaultValueRaw: {x: 0, y: 0, z: 0}
-    dome_offset:
-      valueRaw: {x: 0, y: 0, z: 0}
-      defaultValueRaw: {x: 0, y: 0, z: 0}
-    stereo_left_eye_offset:
-      valueRaw: {x: -0.5, y: 0, z: 0}
-      defaultValueRaw: {x: -0.5, y: 0, z: 0}
-    stereo_right_eye_offset:
-      valueRaw: {x: 0.5, y: 0, z: 0}
-      defaultValueRaw: {x: 0.5, y: 0, z: 0}
-    stereo_left_eye_rotation:
-      valueRaw: {x: 0, y: 0, z: 0}
-      defaultValueRaw: {x: 0, y: 0, z: 0}
-    stereo_right_eye_rotation:
-      valueRaw: {x: 0, y: 0, z: 0}
-      defaultValueRaw: {x: 0, y: 0, z: 0}
-    mipmapBias:
-      valueRaw: 0
-      defaultValueRaw: 0
-  output: {fileID: 0}
---- !u!81 &2042327336
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042327332}
-  m_Enabled: 1
 --- !u!20 &2042327337
 Camera:
   m_ObjectHideFlags: 0
@@ -553,7 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b273278f4eb56d045af4da45ce71fcd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  urlSignaling: http://localhost
   iceServers:
   - credential: 
     credentialType: 0
@@ -561,6 +422,4 @@ MonoBehaviour:
     - stun:stun.l.google.com:19302
     username: 
   streamingSize: {x: 1920, y: 1080}
-  interval: 5
-  captureCamera: {fileID: 2042327337}
-  hardwareEncoderSupport: 1
+  captureCamera: {fileID: 0}

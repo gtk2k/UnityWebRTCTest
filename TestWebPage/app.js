@@ -11,7 +11,7 @@ ws.onmessage = async evt => {
             const answer = await pc.createAnswer();
             await pc.setLocalDescription(answer);
             ws.send(JSON.stringify(answer));
-        } else if(msg.type === 'candidate') {
+        } else if (msg.type === 'candidate') {
             await pc.addIceCandidate(msg);
         }
     }
@@ -26,12 +26,12 @@ ws.onerror = _ => {
 const pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
 pc.onicecandidate = evt => {
     console.log(`onicecandidate: ${evt.candidate}`);
-    if(evt.candidate) 
-        ws.send(JSON.stringify({ type: 'candidate', candidate:evt.candidate}));
+    if (evt.candidate)
+        ws.send(JSON.stringify({ type: 'candidate', candidate: evt.candidate.candidate, sdpMid: evt.candidate.sdpMid, sdpMLineIndex: evt.candidate.sdpMLineIndex }));
 };
 pc.ontrack = evt => {
     console.log(`ontrack: ${evt.track.kind}`);
-    if(evt.track.kind === 'video')
+    if (evt.track.kind === 'video')
         vid.srcObject = evt.streams[0];
 };
 pc.ondatachannel = evt => {
